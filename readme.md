@@ -1,37 +1,30 @@
-Certainly! Here's how you can format the setup instructions for a GitHub README:
+Certainly! Here's a more minimal version for your GitHub README with focus on `.env` and installation steps:
 
 ---
 
 ## Setup Instructions
 
-To run the project on your local machine, follow the steps below.
+### Step 1: Set up `.env` File
 
-### Step 1: Set up a Virtual Environment
+Create a `.env` file in the root directory and add your MongoDB URI:
 
-Make sure you're in the project directory, then run the following commands to create and activate a virtual environment:
-
-```bash
-# Create a virtual environment
-python -m venv .venv
-
-# Activate the virtual environment (Windows)
-.venv\Scripts\activate
-
-# Activate the virtual environment (macOS/Linux)
-source .venv/bin/activate
+```
+MONGO_URI=your_mongodb_connection_string_here
 ```
 
 ### Step 2: Install Dependencies
 
-Once the virtual environment is activated, install the required dependencies:
+Activate your virtual environment and install dependencies:
 
 ```bash
 pip install flask
 ```
 
+If `pip` doesn't work, follow the troubleshooting steps below.
+
 ### Troubleshooting
 
-If the above steps don’t work on your machine, follow these instructions to reset your virtual environment:
+If you encounter issues, reset your virtual environment:
 
 1. **Deactivate the virtual environment:**
 
@@ -53,14 +46,12 @@ If the above steps don’t work on your machine, follow these instructions to re
    source .venv/bin/activate      # macOS/Linux
    ```
 
-4. **Reinstall the dependencies:**
+4. **Reinstall dependencies:**
 
    ```bash
    pip install flask
    ```
 
-After completing these steps, the virtual environment should be set up correctly.
-
 ---
 
-This format should make it clear for anyone following the README to set up their environment on both Windows and macOS/Linux systems.
+This should cover the basic steps for setting up the `.env` and installing Flask with minimal instructions.
