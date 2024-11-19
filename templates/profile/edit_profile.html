@@ -3,39 +3,32 @@
 {% block content %}
 <div class="container mx-auto mt-8">
     <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
-        <h5 class="text-2xl font-semibold mb-6">Select Movie Genres</h5>
+        <h5 class="text-2xl font-semibold mb-6">Edit Profile</h5>
         
-        <form method="POST" action="{{ url_for('movie.index') }}">
-            <!-- Genre Filter Section -->
+        <form method="POST">
+
+            <!-- Bio Section -->
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Select Genres</label>
+                <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+                <textarea name="bio" id="bio" class="mt-2 block w-full text-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" rows="4">{{ profile.bio }}</textarea>
+            </div>
+
+            <!-- Favorite Genres Section -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Favorite Genres</label>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {% for genre in ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance', 'Thriller', 'Animation', 'Documentary'] %}
                     <div class="flex items-center">
-                        <input class="form-checkbox text-indigo-600" type="checkbox" name="genres" value="{{ genre }}" id="genre_{{ genre|lower }}">
+                        <input class="form-checkbox text-indigo-600" type="checkbox" name="favorite_genres" value="{{ genre }}" id="genre_{{ genre|lower }}" {% if genre in profile.favorite_genres %}checked{% endif %}>
                         <label class="ml-2 text-sm text-gray-700" for="genre_{{ genre|lower }}">{{ genre }}</label>
                     </div>
                     {% endfor %}
                 </div>
             </div>
 
-            <!-- Search Button -->
-            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Search Movies</button>
+            <!-- Update Button -->
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Update Profile</button>
         </form>
-
-        <div class="mt-6">
-            <h5 class="text-xl font-semibold mb-4">Movies</h5>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-                {% for movie in movies %}
-                <div class="card bg-white shadow-sm rounded-lg overflow-hidden">
-                    <img src="{{ movie.poster }}" class="w-full h-48 object-cover" alt="{{ movie.title }}">
-                    <div class="p-3">
-                        <h6 class="font-semibold text-sm mb-2">{{ movie.title }} ({{ movie.year }})</h6>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %}
