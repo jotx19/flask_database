@@ -3,19 +3,16 @@ from flask_pymongo import PyMongo
 import os
 from db.db import DatabaseSetup
 
-# Import blueprints
 from routes.auth import auth_bp
 from routes.movie import movie_bp
 from routes.review import review_bp
 from routes.profile import profile_bp
 
-# Import models and services
 from models.user import UserModel
 from models.review import ReviewModel
 from factories.movie_provider_factory import MovieProviderFactory
 from models.profile import ProfileModel
 
-# Configure file uploads
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -27,13 +24,11 @@ def create_app():
     # Ensure the upload directory exists
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     
-    # MongoDB Configuration
-    app.config["MONGO_URI"] = "MONGO_URL"
+    # MongoDB Configuration add your mongolink here
+    app.config["MONGO_URI"] = 
     
-    # Initialize MongoDB
     mongo = PyMongo(app)
     
-    # Setup database optimizations
     print("Setting up database optimizations...")
     db_setup = DatabaseSetup(app.config["MONGO_URI"])
     setup_success = db_setup.setup_all()
@@ -52,7 +47,6 @@ def create_app():
     )
     app.profile_model = ProfileModel(mongo.db)
     
-    # Register blueprints
     app.register_blueprint(auth_bp)
     app.register_blueprint(movie_bp)
     app.register_blueprint(review_bp)
