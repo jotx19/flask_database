@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Review Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body style="background-color: #c1c1bd;">
+    <nav class="bg-black text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{ url_for('movie.index') }}" class="text-xl font-bold hover:text-gray-300">Movie Reviews</a>
+            <div class="flex items-center space-x-4">
+                <a href="{{ url_for('review.view_all_reviews') }}" class="hover:text-gray-300">All Reviews</a>
+                {% if 'user_id' in session %}
+                    <a href="{{ url_for('profile.view_profile', user_id=session['user_id']) }}" class="hover:text-gray-300">My Profile</a>
+                    <span class="text-gray-400">Welcome, <span class="font-semibold">{{ session['username'] }}</span></span>
+                    <a href="{{ url_for('auth.logout') }}" class="hover:text-red-400 border border-white rounded-xl bg-transparent p-1">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="hover:text-green-400">Login</a>
+                    <a href="{{ url_for('auth.register') }}" class="hover:text-blue-400">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto mt-6">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="bg-{{ 'green' if category == 'success' else 'red' }}-100 text-{{ 'green' if category == 'success' else 'red' }}-700 p-4 rounded mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

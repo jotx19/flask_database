@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-10">
+    <h1 class="text-5xl font-bold">Welcome to Movie Reviews</h1>
+    <form action="{{ url_for('movie.search_movie') }}" method="POST" class="mt-5 flex justify-center">
+        <input type="text" name="query" class="border border-black rounded-full h-12 px-4 w-96 " placeholder="Search here" required>
+        <button type="submit" class="ml-2 bg-blue-500 text-white rounded-full px-5 py-2 font-bold hover:bg-blue-600 transition">
+            Search
+        </button>
+    </form>
+</div>
+
+<h2 class="text-3xl font-semibold mb-6">Movies</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {% for movie in movies %}
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+        <!-- Larger image size -->
+        <img src="{{ movie.Poster }}" alt="{{ movie.Title }}" class="w-full h-80 object-cover">
+
+        <div class="p-4">
+            <!-- Smaller title font -->
+            <h5 class="text-base font-semibold mb-2">{{ movie.Title }}</h5>
+            <p class="text-sm text-gray-700">{{ movie.Year }}</p>
+            <!-- Smaller button with padding adjustment -->
+            <a href="{{ url_for('movie.movie_details', movie_id=movie.imdbID) }}"
+               class="mt-4 inline-block bg-blue-500 text-white rounded-lg px-3 py-1.5 text-sm font-semibold hover:bg-blue-600 transition">
+                View Details
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
